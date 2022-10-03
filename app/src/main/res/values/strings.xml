@@ -1,0 +1,10 @@
+
+    <resources>
+        <string name="app_name">FullWat</string>
+        <string-array name="planets_array">
+            <item>Seleccione un idioma</item>
+            <item>Castellano</item>
+            <item>Ingles</item>
+            <item>Frances</item>
+        </string-array>
+    </resources>
