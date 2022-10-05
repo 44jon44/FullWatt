@@ -1,4 +1,4 @@
-package com.main.fullwat;
+package app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.main.fullwat.R;
 
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         if (pos==1) {
             Toast.makeText(this, "1", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(MainActivity.this,Tiras.class);
+            Intent intent = new Intent(MainActivity.this, Tiras.class);
             intent.putExtra("idioma",1);
             startActivity(intent);
         }

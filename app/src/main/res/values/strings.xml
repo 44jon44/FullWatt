@@ -4,7 +4,9 @@
         <string-array name="planets_array">
             <item>Seleccione un idioma</item>
             <item>Castellano</item>
-            <item>Ingles</item>
-            <item>Frances</item>
+            <item>English</item>
+            <item>Français</item>
         </string-array>
+        <string name="opcional">*Opcional* Seleccionar una opcion</string>
+        <string name="obligatorio">*Obligatorio* Seleccionar una opcion</string>
     </resources>
