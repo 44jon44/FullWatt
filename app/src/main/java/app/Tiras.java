@@ -13,7 +13,7 @@ import com.main.fullwat.R;
 import java.util.List;
 import java.util.Observable;
 
-public class Tiras extends AppCompatActivity  implements AdapterView.OnItemSelectedListener{
+public class Tiras extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
     @Override
@@ -21,27 +21,26 @@ public class Tiras extends AppCompatActivity  implements AdapterView.OnItemSelec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tiraslayout);
 
-        Spinner spinnerM =  findViewById(R.id.modelo);
+        Spinner spinnerM = findViewById(R.id.modelo);
         spinnerM.setOnItemSelectedListener(this);
 
-        Spinner spinnerT =  findViewById(R.id.tension);
+        Spinner spinnerT = findViewById(R.id.tension);
         spinnerT.setOnItemSelectedListener(this);
 
-        Spinner spinnerTe =  findViewById(R.id.temperatura);
+        Spinner spinnerTe = findViewById(R.id.temperatura);
         spinnerTe.setOnItemSelectedListener(this);
 
-        Spinner spinnerP =  findViewById(R.id.potenciaMetro);
+        Spinner spinnerP = findViewById(R.id.potenciaMetro);
         spinnerP.setOnItemSelectedListener(this);
 
-        Spinner spinnerLu =  findViewById(R.id.lumenesMetro);
+        Spinner spinnerLu = findViewById(R.id.lumenesMetro);
         spinnerLu.setOnItemSelectedListener(this);
 
-        Spinner spinnerLe =  findViewById(R.id.ledsMetro);
+        Spinner spinnerLe = findViewById(R.id.ledsMetro);
         spinnerLe.setOnItemSelectedListener(this);
 
-        Spinner spinnerIp =  findViewById(R.id.ip);
+        Spinner spinnerIp = findViewById(R.id.ip);
         spinnerIp.setOnItemSelectedListener(this);
-
 
 
         // Create an ArrayAdapter using the string array and a default spinner layout
