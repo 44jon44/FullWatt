@@ -1,7 +1,7 @@
 
     <resources>
         <string name="app_name">FullWat</string>
-        <string-array name="planets_array">
+        <string-array name="idiomas_array">
             <item>Seleccione un idioma</item>
             <item>Castellano</item>
             <item>English</item>

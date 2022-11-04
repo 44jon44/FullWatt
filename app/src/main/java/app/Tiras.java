@@ -10,14 +10,27 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.main.fullwat.R;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+
+import interfaces.ItemAVInterface;
 
 public class Tiras extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        ItemAVInterface datosFiltros= MainActivity.cargarFiltros();
+        ArrayList<String> lista = new ArrayList<String>();
+        try {
+            lista=datosFiltros.cargarModeloValues();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tiraslayout);
 
@@ -43,12 +56,11 @@ public class Tiras extends AppCompatActivity implements AdapterView.OnItemSelect
         spinnerIp.setOnItemSelectedListener(this);
 
 
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapterM = ArrayAdapter.createFromResource(this,
-                R.array.planets_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
+
+
+
+        ArrayAdapter<String> adapterM = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,lista);
         adapterM.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
         spinnerM.setAdapter(adapterM);
     }
 
