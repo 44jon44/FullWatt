@@ -77,7 +77,8 @@
         android:layout_marginEnd="1dp"
         android:minHeight="48dp"
         android:clickable="true"
-
+        android:style="@android:style/Widget.DeviceDefault.Light.Spinner"
+        android:text="pajin"
         app:layout_constraintBottom_toTopOf="@+id/tension"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -96,18 +97,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ledsMetro" />
 
-    <TextView
-        android:id="@+id/textViewIP"
-        android:layout_width="244dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="148dp"
-        android:layout_marginBottom="7dp"
-        android:text="@string/opcional"
-        app:layout_constraintBottom_toBottomOf="@+id/ip"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ip" />
-
     <Spinner
         android:id="@+id/ledsMetro"
         android:layout_width="409dp"
@@ -119,66 +108,5 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lumenesMetro" />
-
-    <TextView
-        android:id="@+id/textViewTension"
-        android:layout_width="244dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="148dp"
-        android:layout_marginBottom="7dp"
-        android:text="@string/opcional"
-        app:layout_constraintBottom_toBottomOf="@+id/tension"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tension" />
-
-    <TextView
-        android:id="@+id/textViewTemperatura"
-        android:layout_width="244dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="148dp"
-        android:layout_marginBottom="7dp"
-        android:text="@string/obligatorio"
-        app:layout_constraintBottom_toBottomOf="@+id/temperatura"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/temperatura"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <TextView
-        android:id="@+id/textViewPotenciaMetro"
-        android:layout_width="244dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="148dp"
-        android:layout_marginBottom="7dp"
-        android:text="@string/opcional"
-        app:layout_constraintBottom_toBottomOf="@+id/potenciaMetro"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/potenciaMetro" />
-
-    <TextView
-        android:id="@+id/textViewLumenesMetro"
-        android:layout_width="244dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="148dp"
-        android:layout_marginBottom="7dp"
-        android:text="@string/opcional"
-        app:layout_constraintBottom_toBottomOf="@+id/lumenesMetro"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/lumenesMetro" />
-
-    <TextView
-        android:id="@+id/textViewledsMetro"
-        android:layout_width="244dp"
-        android:layout_height="34dp"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="148dp"
-        android:layout_marginBottom="7dp"
-        android:text="@string/opcional"
-        app:layout_constraintBottom_toBottomOf="@+id/ledsMetro"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/ledsMetro" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
