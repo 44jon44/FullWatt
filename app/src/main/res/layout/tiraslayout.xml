@@ -28,7 +28,7 @@
         android:layout_marginEnd="1dp"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/temperatura" />
 
@@ -70,15 +70,13 @@
 
     <Spinner
         android:id="@+id/modelo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="409dp"
+        android:layout_height="48dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="144dp"
         android:layout_marginEnd="1dp"
-        android:minHeight="48dp"
         android:clickable="true"
-        android:style="@android:style/Widget.DeviceDefault.Light.Spinner"
-        android:text="pajin"
+        android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@+id/tension"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -108,5 +106,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lumenesMetro" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
