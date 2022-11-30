@@ -23,6 +23,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import model.Item_Attribute_Value;
+
 public class Tiras extends AppCompatActivity {
 
     ArrayList<String> models = new ArrayList<>();
@@ -32,6 +34,8 @@ public class Tiras extends AppCompatActivity {
     ArrayList<String> lumenM = new ArrayList<>();
     ArrayList<String> ledsM = new ArrayList<>();
     ArrayList<String> ips = new ArrayList<>();
+    ArrayList<String>filters=new ArrayList<>();
+    ArrayList <String> resul=new ArrayList<>();
 
     ArrayAdapter<String> modelAdapter;
     ArrayAdapter<String> tensionAdapter;
@@ -40,6 +44,7 @@ public class Tiras extends AppCompatActivity {
     ArrayAdapter<String> lumenMAdapter;
     ArrayAdapter<String> ledsMAdapter;
     ArrayAdapter<String> ipAdapter;
+    ArrayAdapter<String> resulAdapter;
 
     RequestQueue requestQueueM;
     RequestQueue requestQueueTen;
@@ -48,6 +53,7 @@ public class Tiras extends AppCompatActivity {
     RequestQueue requestQueueLu;
     RequestQueue requestQueueLe;
     RequestQueue requestQueueIP;
+    RequestQueue requestQueueResul;
 
     Spinner spinnerM;
     Spinner spinnerT;
@@ -56,6 +62,7 @@ public class Tiras extends AppCompatActivity {
     Spinner spinnerLu;
     Spinner spinnerLe;
     Spinner spinnerIp;
+    Spinner spinnnerResul;
 
     String URLModelos = "http://192.168.224.86/fullwat_app_db/fetchModels.php";
     String URLTensions = "http://192.168.224.86/fullwat_app_db/fetchTensions.php";
@@ -63,7 +70,9 @@ public class Tiras extends AppCompatActivity {
     String URLLumens = "http://192.168.224.86/fullwat_app_db/fetchLumens.php";
     String URLLeds = "http://192.168.224.86/fullwat_app_db/fetchLedsM.php";
     String URLIPs = "http://192.168.224.86/fullwat_app_db/fetchIPs.php";
-    String URLTempCol = "http://localhost/fullwat_app_db/fetchTempCol.php?filter=";
+    String URLTempCol = "http://192.168.224.86/fullwat_app_db/fetchTempCol.php?filter=";
+    String UrlFindAll1="http://192.168.224.86/fullwat_app_db/findAll1.php?filter=";
+    String UrlFindAll2="http://192.168.224.86/fullwat_app_db/findAll2.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +81,12 @@ public class Tiras extends AppCompatActivity {
 
         Spinner spinnerM = findViewById(R.id.modelo);
         Spinner spinnerT = findViewById(R.id.tension);
-        Spinner spinnerTe = findViewById(R.id.temperatura);
+
         Spinner spinnerP = findViewById(R.id.potenciaMetro);
         Spinner spinnerLu = findViewById(R.id.lumenesMetro);
         Spinner spinnerLe = findViewById(R.id.ledsMetro);
         Spinner spinnerIp = findViewById(R.id.ip);
+
 
         requestQueueM = Volley.newRequestQueue(this);
         requestQueueIP = Volley.newRequestQueue(this);
@@ -159,6 +169,7 @@ public class Tiras extends AppCompatActivity {
 
                 System.out.println(response.length());
                 System.out.println(response.toString());
+
                 tensions.add(0, "Tension*Opcional*");
                 try {
                     JSONArray jsonArray = response.getJSONArray("tensions");
@@ -188,7 +199,7 @@ public class Tiras extends AppCompatActivity {
             }
         });
         requestQueueTen.add(requestT);
-        spinnerM.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerT.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 System.out.println("PajinTension");
@@ -203,11 +214,6 @@ public class Tiras extends AppCompatActivity {
 
             }
         });
-
-        //
-        //TEMPERATURA COLOR
-        //
-
 
         //
         //POTENCIA/M
@@ -226,7 +232,7 @@ public class Tiras extends AppCompatActivity {
         spinnerP.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                System.out.println("PajinPotencia");
+                System.out.println("PajinIP");
                 potenciaM.remove(0);
                 potenciaM.add(0, "Potencia/M");
             }
@@ -399,28 +405,88 @@ public class Tiras extends AppCompatActivity {
     }
 
     private void cargarTempCol(String tempCol) {
-        URLTempCol = URLTempCol.concat(tempCol);
-        JsonObjectRequest requestTemp = new JsonObjectRequest(Request.Method.GET, URLTempCol, null, new Response.Listener<JSONObject>() {
+        if(tempCol!="Modelo de la tira" && tempCol!="Modelo de la tira*Obligatorio*") {
+            Spinner spinnerTe = findViewById(R.id.temperatura);
+            URLTempCol = URLTempCol.concat(tempCol);
+            System.out.println(URLTempCol);
+            JsonObjectRequest requestTemp = new JsonObjectRequest(Request.Method.GET, URLTempCol, null, new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject response) {
+
+
+                    tempCols.add(0, "Temperatura de color *Obligatorio*");
+                    try {
+                        JSONArray jsonArray = response.getJSONArray("tempCols");
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            //String id=jsonObject.optString("ID");
+                            //String attribute_id=jsonObject.optString("Attribute_ID");
+                            //String filter=jsonObject.optString("Filter");
+                            String value = jsonObject.getString("Value");
+
+                            tempCols.add(value);
+                            tempColsAdapter = new ArrayAdapter<>(Tiras.this, android.R.layout.simple_spinner_item, tempCols);
+                            tempColsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                            spinnerTe.setAdapter(tempColsAdapter);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("error", error.toString());
+                }
+            });
+            requestQueueTemp.add(requestTemp);
+            spinnerTe.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    tempCols.remove(0);
+                    tempCols.add(0, "Temperatura de color");
+                    System.out.println("PajinTemp");
+
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+
+
+
+        }else {
+            System.out.println("Eres un pajin");
+        }
+    }
+    private void cargarResultados1(String tempCol){
+        Spinner spinnerResul=findViewById(R.id.resultados);
+        UrlFindAll1.concat(tempCol);
+        JsonObjectRequest requestResul = new JsonObjectRequest(Request.Method.GET, UrlFindAll1, null, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
 
-
-                tempCols.add(0, "Temperatura de color *Obligatorio*");
                 try {
-                    JSONArray jsonArray = response.getJSONArray("tempCols");
+                    JSONArray jsonArray = response.getJSONArray("resul1");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         //String id=jsonObject.optString("ID");
                         //String attribute_id=jsonObject.optString("Attribute_ID");
                         //String filter=jsonObject.optString("Filter");
-                        String value = jsonObject.getString("Value");
+                        String value3 = jsonObject.getString("Id");
 
-                        tempCols.add(value);
-                        tempColsAdapter = new ArrayAdapter<>(Tiras.this, android.R.layout.simple_spinner_item, tempCols);
-                        tempColsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        resul.add(value3);
+                        resulAdapter = new ArrayAdapter<>(Tiras.this, android.R.layout.simple_spinner_item, resul);
+                        resulAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                        spinnerTe.setAdapter(tempColsAdapter);
+                        spinnerResul.setAdapter(resulAdapter );
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -433,13 +499,10 @@ public class Tiras extends AppCompatActivity {
                 Log.d("error", error.toString());
             }
         });
-        requestQueueTemp.add(requestTemp);
-        spinnerTe.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        requestQueueResul.add(requestResul);
+        spinnerResul.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                tempCols.remove(0);
-                tempCols.add(0, "Lumen/M");
-                System.out.println("PajinTemp");
 
             }
 
@@ -448,6 +511,7 @@ public class Tiras extends AppCompatActivity {
 
             }
         });
+
     }
 
 
